@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+:root {
+  --bg-dark: #1e1e1e;
+  --bg-darker: #121212;
+  --text-light: #f5f5f5;
+  --text-muted: #ccc;
+  --primary: #ffffff;
+  --success: #4caf50;
+  --button-hover: #388e3c;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
