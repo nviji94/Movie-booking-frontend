@@ -171,15 +171,15 @@ export default function ScreeningsTab({
         {screenings.map((s) => (
           <Paper key={s.id} sx={{ p: 2, backgroundColor: "var(--bg-darker)" }}>
             <Typography>
-              🎥 Movie:{" "}
+              Movie:{" "}
               {movies.find((m) => m.id === s.movieId)?.title || s.movieId}
             </Typography>
             <Typography>
-              🏛 Theater:{" "}
+              Theater:{" "}
               {theaters.find((t) => t.id === s.theaterId)?.name || s.theaterId}
             </Typography>
             <Typography>
-              🕒 Start Time: {new Date(s.startTime).toLocaleString()}
+              Start Time: {new Date(s.startTime).toLocaleString()}
             </Typography>
           </Paper>
         ))}

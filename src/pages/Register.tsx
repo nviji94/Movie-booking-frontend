@@ -12,8 +12,7 @@ export default function Register() {
     try {
       await axios.post("http://localhost:4000/register", { email, password });
 
-      // ✅ Show popup before redirect
-      alert("🎉 Registration successful! Please login.");
+      alert("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {
       alert("Registration failed");
@@ -21,7 +20,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <section className="flex items-center justify-center h-screen bg-gray-100">
       <form
         onSubmit={handleRegister}
         className="bg-white p-8 rounded-2xl shadow-lg w-96"
@@ -48,7 +47,6 @@ export default function Register() {
           Register
         </button>
 
-        {/* Link to Login */}
         <p className="text-center mt-4 text-sm">
           Already have an account?{" "}
           <button
@@ -60,6 +58,6 @@ export default function Register() {
           </button>
         </p>
       </form>
-    </div>
+    </section>
   );
 }

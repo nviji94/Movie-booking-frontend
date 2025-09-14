@@ -118,9 +118,9 @@ export default function TimesPage() {
   });
 
   return (
-    <div className="p-8">
+    <section className="p-8">
       {movie && (
-        <div className="mb-6 flex items-center gap-4">
+        <header className="mb-6 flex items-center gap-4">
           <div className="w-24 h-32 flex-shrink-0 overflow-hidden rounded-lg">
             <img
               src={
@@ -128,44 +128,52 @@ export default function TimesPage() {
                   ? `http://localhost:4000${movie.posterUrl}`
                   : "http://localhost:4000/uploads/Not_Found.JPG"
               }
-              alt={movie.title}
+              alt={`Poster of ${movie.title}`}
               className="w-full h-full object-cover"
             />
           </div>
           <h1 className="text-3xl font-bold">{movie.title}</h1>
-        </div>
+        </header>
       )}
 
-      {/* Theater Selector */}
-      <div className="mb-4">
-        <label className="block mb-2 font-medium">Theater</label>
-        <select
-          className="w-full p-2 border rounded"
-          value={selectedTheater ?? ""}
-          onChange={(e) => setSelectedTheater(Number(e.target.value))}
-        >
-          <option value="">Select a theater</option>
-          {theaters.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.name} - {t.location}
-            </option>
-          ))}
-        </select>
-      </div>
+      <form className="mb-4" aria-label="Screening selection form">
+        {/* Theater Selector */}
+        <div className="mb-4">
+          <label htmlFor="theater-select" className="block mb-2 font-medium">
+            Theater
+          </label>
+          <select
+            id="theater-select"
+            className="w-full p-2 border rounded"
+            value={selectedTheater ?? ""}
+            onChange={(e) => setSelectedTheater(Number(e.target.value))}
+          >
+            <option value="">Select a theater</option>
+            {theaters.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name} - {t.location}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Date Picker */}
-      <div className="mb-4">
-        <label className="block mb-2 font-medium">Date</label>
-        <input
-          type="date"
-          className="w-full p-2 border rounded"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
-      </div>
+        {/* Date Picker */}
+        <div className="mb-4">
+          <label htmlFor="date-select" className="block mb-2 font-medium">
+            Date
+          </label>
+          <input
+            id="date-select"
+            type="date"
+            className="w-full p-2 border rounded"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
+      </form>
 
       {/* Available Slots */}
-      <div>
+      <section aria-label="Available screening times">
         <h2 className="text-xl font-semibold mb-2">Available Times</h2>
         <ul>
           {filteredScreenings.map((s) => {
@@ -183,6 +191,14 @@ export default function TimesPage() {
                 key={s.id}
                 className="p-2 mb-2 rounded bg-gray-100 cursor-pointer hover:bg-blue-200 flex justify-between items-center"
                 onClick={() => navigate(`/seats/${s.id}`)}
+                role="button"
+                tabIndex={0}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") navigate(`/seats/${s.id}`);
+                }}
+                aria-label={`Screening at ${formatTime(
+                  s.startTime
+                )}, ${seatsLeft} seats left`}
               >
                 <span>{formatTime(s.startTime)}</span>
                 <span className={`text-sm font-semibold ${seatsColor}`}>
@@ -197,7 +213,7 @@ export default function TimesPage() {
             </p>
           )}
         </ul>
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }

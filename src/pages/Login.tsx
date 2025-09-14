@@ -36,13 +36,11 @@ export default function Login({ setToken, setRole }: LoginProps) {
     }
   };
 
-  // Google login success handler
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
       const decoded: any = jwtDecode(credentialResponse.credential);
       console.log(decoded);
 
-      // Send token to backend for verification (and issue your JWT)
       const res = await axios.post("http://localhost:4000/auth/google", {
         token: credentialResponse.credential,
       });
@@ -62,7 +60,7 @@ export default function Login({ setToken, setRole }: LoginProps) {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <section className="flex items-center justify-center h-screen bg-gray-100">
       <form
         onSubmit={handleLogin}
         className="bg-white p-8 rounded-2xl shadow-lg w-96"
@@ -89,7 +87,6 @@ export default function Login({ setToken, setRole }: LoginProps) {
           Login
         </button>
 
-        {/* Google Login Button */}
         <div className="flex justify-center mb-4">
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
@@ -97,7 +94,6 @@ export default function Login({ setToken, setRole }: LoginProps) {
           />
         </div>
 
-        {/* Link to Register */}
         <p className="text-center mt-4 text-sm">
           Don’t have an account?{" "}
           <button
@@ -109,6 +105,6 @@ export default function Login({ setToken, setRole }: LoginProps) {
           </button>
         </p>
       </form>
-    </div>
+    </section>
   );
 }
