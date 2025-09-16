@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-
+import api from "../api";
 interface LoginProps {
   setToken: (token: string) => void;
   setRole: (role: string) => void;
@@ -17,7 +17,7 @@ export default function Login({ setToken, setRole }: LoginProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:4000/login", {
+      const res = await api.post("/login", {
         email,
         password,
       });
@@ -41,7 +41,7 @@ export default function Login({ setToken, setRole }: LoginProps) {
       const decoded: any = jwtDecode(credentialResponse.credential);
       console.log(decoded);
 
-      const res = await axios.post("http://localhost:4000/auth/google", {
+      const res = await api.post("/auth/google", {
         token: credentialResponse.credential,
       });
 

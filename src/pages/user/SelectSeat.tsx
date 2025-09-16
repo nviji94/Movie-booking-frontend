@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { io, Socket } from "socket.io-client";
+import api from "../../api";
 
 interface Seat {
   id: number;
@@ -47,8 +48,8 @@ export default function SeatsPage() {
       if (!screeningId) return;
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          `http://localhost:4000/screenings/${screeningId}/seats`,
+        const res = await api.get(
+          `/screenings/${screeningId}/seats`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setSeats(res.data);
@@ -71,8 +72,8 @@ export default function SeatsPage() {
     if (!screeningId || selectedSeats.length === 0) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        `http://localhost:4000/screenings/${screeningId}/book`,
+      await api.post(
+        `/screenings/${screeningId}/book`,
         { seatIds: selectedSeats },
         { headers: { Authorization: `Bearer ${token}` } }
       );

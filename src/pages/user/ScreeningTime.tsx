@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import api from "../../api";
 
 interface Theater {
   id: number;
@@ -45,7 +46,7 @@ export default function TimesPage() {
     const fetchMovie = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:4000/movies`, {
+        const res = await api.get(`/movies`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const foundMovie = res.data.find((m: any) => m.id === Number(movieId));
@@ -62,7 +63,7 @@ export default function TimesPage() {
     const fetchTheaters = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:4000/theaters", {
+        const res = await api.get("/theaters", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTheaters(res.data);
@@ -79,8 +80,8 @@ export default function TimesPage() {
       if (!selectedTheater) return;
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          `http://localhost:4000/theaters/${selectedTheater}/screenings?movieId=${movieId}`,
+        const res = await api.get(
+          `/theaters/${selectedTheater}/screenings?movieId=${movieId}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setScreenings(res.data);
@@ -89,8 +90,8 @@ export default function TimesPage() {
         const seatsCounts: Record<number, number> = {};
         await Promise.all(
           res.data.map(async (screening: Screening) => {
-            const seatsRes = await axios.get(
-              `http://localhost:4000/screenings/${screening.id}/seats`,
+            const seatsRes = await api.get(
+              `/screenings/${screening.id}/seats`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
             const seats: Seat[] = seatsRes.data;

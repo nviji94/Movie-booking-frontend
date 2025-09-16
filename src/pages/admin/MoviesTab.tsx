@@ -13,6 +13,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { Movie } from "./AdminDashboard";
+import api from "../../api";
 
 interface MoviesTabProps {
   movies: Movie[];
@@ -98,7 +99,7 @@ export default function MoviesTab({
       formData.append("genre", trimmedGenre);
       if (poster) formData.append("poster", poster);
 
-      const res = await axios.post("http://localhost:4000/movies", formData, {
+      const res = await api.post("/movies", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
@@ -159,8 +160,8 @@ export default function MoviesTab({
       formData.append("genre", trimmedGenre);
       if (poster) formData.append("poster", poster);
 
-      const res = await axios.put(
-        `http://localhost:4000/movies/${editingMovie.id}`,
+      const res = await api.put(
+        `/movies/${editingMovie.id}`,
         formData,
         {
           headers: {
@@ -184,7 +185,7 @@ export default function MoviesTab({
     if (!window.confirm("Are you sure you want to delete this movie?")) return;
 
     try {
-      await axios.delete(`http://localhost:4000/movies/${id}`, {
+      await api.delete(`/movies/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMovies(movies.filter((m) => m.id !== id));

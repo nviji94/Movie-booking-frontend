@@ -10,6 +10,7 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
+import api from "../../api";
 
 interface ScreeningsTabProps {
   screenings: Screening[];
@@ -52,8 +53,8 @@ export default function ScreeningsTab({
     if (!movieId || !theaterId || !startTime || !token) return;
 
     try {
-      const res = await axios.post(
-        "http://localhost:4000/screenings",
+      const res = await api.post(
+        "/screenings",
         { movieId, theaterId, startTime },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -61,8 +62,8 @@ export default function ScreeningsTab({
       const newScreening = res.data;
       const seatLayout = generateSeats();
 
-      await axios.post(
-        `http://localhost:4000/screenings/${newScreening.id}/seats`,
+      await api.post(
+        `/screenings/${newScreening.id}/seats`,
         { seatNumbers: seatLayout },
         { headers: { Authorization: `Bearer ${token}` } }
       );

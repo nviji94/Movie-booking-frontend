@@ -1,5 +1,6 @@
 import { Theater } from "./AdminDashboard";
 import axios from "axios";
+import api from "../../api";
 
 interface TheatersTabProps {
   theaters: Theater[];
@@ -19,8 +20,8 @@ export default function TheatersTab({
     if (!name || !location || !token) return;
 
     try {
-      const res = await axios.post(
-        "http://localhost:4000/theaters",
+      const res = await api.post(
+        "/theaters",
         { name, location },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -39,8 +40,8 @@ export default function TheatersTab({
     if (!name || !location) return;
 
     try {
-      const res = await axios.put(
-        `http://localhost:4000/theaters/${theater.id}`,
+      const res = await api.put(
+        `/theaters/${theater.id}`,
         { name, location },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -61,7 +62,7 @@ export default function TheatersTab({
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:4000/theaters/${theaterId}`, {
+      await api.delete(`/theaters/${theaterId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Remove from state

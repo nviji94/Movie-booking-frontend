@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
+import api from "../../api";
 
 interface Movie {
   id: number;
@@ -24,7 +25,7 @@ export default function Movies() {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await axios.get("http://localhost:4000/movies", {
+        const res = await api.get("/movies", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const mappedMovies: Movie[] = res.data.map((movie: any) => ({

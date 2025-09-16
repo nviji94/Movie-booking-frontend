@@ -4,6 +4,7 @@ import { Box, Button, Typography, Paper, Stack } from "@mui/material";
 import MoviesTab from "./MoviesTab";
 import TheatersTab from "./TheatersTab";
 import ScreeningsTab from "./ScreeningsTab";
+import api from "../../api";
 
 export default function AdminDashboard() {
   const [currentTab, setCurrentTab] = useState<
@@ -18,22 +19,22 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!token) return;
 
-    axios
-      .get("http://localhost:4000/movies", {
+    api
+      .get("/movies", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setMovies(res.data))
       .catch(console.error);
 
-    axios
-      .get("http://localhost:4000/theaters", {
+    api
+      .get("/theaters", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setTheaters(res.data))
       .catch(console.error);
 
-    axios
-      .get("http://localhost:4000/screenings", {
+    api
+      .get("/screenings", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setScreenings(res.data))

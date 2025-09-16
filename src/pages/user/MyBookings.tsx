@@ -4,6 +4,7 @@ import TheaterComedyIcon from "@mui/icons-material/TheaterComedy";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import WarningIcon from "@mui/icons-material/Warning";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
+import api from "../../api";
 
 interface Booking {
   id: number;
@@ -35,7 +36,7 @@ export default function MyBookings() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:4000/bookings", {
+      const res = await api.get("/bookings", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -71,7 +72,7 @@ export default function MyBookings() {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:4000/bookings/${screeningId}`, {
+      await api.delete(`/bookings/${screeningId}`, {
         headers: { Authorization: `Bearer ${token}` },
         data: { seatIds: seats },
       });
