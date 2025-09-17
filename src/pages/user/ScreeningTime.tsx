@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import api from "../../api";
+const apiHost = process.env.REACT_APP_API_BASE_URL as string;
 
 interface Theater {
   id: number;
@@ -126,8 +127,8 @@ export default function TimesPage() {
             <img
               src={
                 movie.posterUrl
-                  ? `http://localhost:4000${movie.posterUrl}`
-                  : "http://localhost:4000/uploads/Not_Found.JPG"
+                  ? `${apiHost}${movie.posterUrl}`
+                  : `${apiHost}/uploads/Not_Found.JPG`
               }
               alt={`Poster of ${movie.title}`}
               className="w-full h-full object-cover"

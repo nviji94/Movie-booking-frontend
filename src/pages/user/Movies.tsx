@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import api from "../../api";
+const apiHost = process.env.REACT_APP_API_BASE_URL as string;
 
 interface Movie {
   id: number;
@@ -119,8 +120,8 @@ export default function Movies() {
                 <img
                   src={
                     movie.posterUrl
-                      ? `http://localhost:4000${movie.posterUrl}`
-                      : "http://localhost:4000/uploads/Not_Found.JPG"
+                      ? `${apiHost}${movie.posterUrl}`
+                      : `${apiHost}/uploads/Not_Found.JPG`
                   }
                   alt={`Poster of ${movie.title}`}
                   className="w-full h-full object-cover"

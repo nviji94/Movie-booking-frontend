@@ -5,6 +5,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import WarningIcon from "@mui/icons-material/Warning";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
 import api from "../../api";
+const apiHost = process.env.REACT_APP_API_BASE_URL as string;
 
 interface Booking {
   id: number;
@@ -120,7 +121,7 @@ export default function MyBookings() {
                 {b.posterUrl && (
                   <figure className="w-full h-48 mb-2 overflow-hidden rounded-lg">
                     <img
-                      src={`http://localhost:4000${b.posterUrl}`}
+                      src={`${apiHost}${b.posterUrl}`}
                       alt={`Poster of ${b.movieTitle}`}
                       className="w-full h-full object-cover"
                     />

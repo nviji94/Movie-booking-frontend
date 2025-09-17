@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { io, Socket } from "socket.io-client";
 import api from "../../api";
+const apiHost = process.env.REACT_APP_API_BASE_URL as string;
 
 interface Seat {
   id: number;
@@ -18,7 +19,7 @@ export default function SeatsPage() {
   useEffect(() => {
     if (!screeningId) return;
 
-    const socket: Socket = io("http://localhost:4000");
+    const socket: Socket = io(`${apiHost}`);
 
     socket.on(
       "seatsBooked",
@@ -48,10 +49,9 @@ export default function SeatsPage() {
       if (!screeningId) return;
       try {
         const token = localStorage.getItem("token");
-        const res = await api.get(
-          `/screenings/${screeningId}/seats`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res = await api.get(`/screenings/${screeningId}/seats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setSeats(res.data);
       } catch (err) {
         console.error(err);
