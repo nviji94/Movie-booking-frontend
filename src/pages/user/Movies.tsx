@@ -18,7 +18,8 @@ export default function Movies() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const [selectedGenre, setSelectedGenre] = useState("All");
-
+  const BASE_URL =
+    process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
   // Fetch movies
   useEffect(() => {
     const fetchMovies = async () => {
@@ -119,8 +120,8 @@ export default function Movies() {
                 <img
                   src={
                     movie.posterUrl
-                      ? `http://localhost:4000${movie.posterUrl}`
-                      : "http://localhost:4000/uploads/Not_Found.JPG"
+                      ? movie.posterUrl
+                      : `${BASE_URL}/uploads/Not_Found.JPG`
                   }
                   alt={`Poster of ${movie.title}`}
                   className="w-full h-full object-cover"
