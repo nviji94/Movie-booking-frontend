@@ -43,7 +43,7 @@ npm run build
 
 Live Demo: https://movie-booking-frontend-t58f.onrender.com/
 
-Backend Repo: 
+Backend Repo: https://github.com/nviji94/movie-booking-backend
 
 Learn More
 
