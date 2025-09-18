@@ -27,7 +27,7 @@ Tech Stack
 Getting Started
 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/movie-booking-app.git
+git clone 
 cd movie-booking-app/frontend
 
 2. Install dependencies
